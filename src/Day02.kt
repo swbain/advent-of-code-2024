@@ -1,6 +1,29 @@
+import kotlin.math.absoluteValue
+
 fun main() {
+    fun input(input: List<String>): List<List<Int>> = input.map { line ->
+        line.split(" ").map { it.toInt() }
+    }
+
+    fun List<Int>.isSafe(): Boolean {
+        val windows = windowed(2).map { it.first() to it.last() }
+        var previousDiff = 0
+        for ((a, b) in windows) {
+            // if a == b, unsafe
+            // if previous diff positive and this diff negative (and vice versa), unsafe
+            // if difference > 3, unsafe.
+            // 0 < difference.abs <= 3
+            val diff = a - b
+            if (diff == 0) return false
+            else if (diff.absoluteValue > 3) return false
+            else if (diff > 0 && previousDiff < 0 || diff < 0 && previousDiff > 0) return false
+            else previousDiff = diff
+        }
+        return true
+    }
+
     fun part1(input: List<String>): Int {
-        return input.size
+        return input(input).count { it.isSafe() }
     }
 
     fun part2(input: List<String>): Int {

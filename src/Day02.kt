@@ -10,12 +10,8 @@ fun main() {
         var previousDiff = 0
         for ((a, b) in windows) {
             val diff = a - b
-            when {
-                diff == 0 -> return false
-                diff.absoluteValue > 3 -> return false
-                diff * previousDiff < 0 -> return false
-                else -> previousDiff = diff
-            }
+            if (diff == 0 || diff.absoluteValue > 3 || diff * previousDiff < 0) return false
+            else previousDiff = diff
         }
         return true
     }

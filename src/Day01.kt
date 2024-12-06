@@ -14,11 +14,7 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val (first, second) = getLists(input)
-        val firstSorted = first.sorted()
-        val secondSorted = second.sorted()
-        return firstSorted.foldIndexed(0) { index, acc, i ->
-            acc + (i - secondSorted[index]).absoluteValue
-        }
+        return first.sorted().zip(second.sorted()).fold(0) { acc, (a, b) -> acc + (a - b).absoluteValue }
     }
 
     fun part2(input: List<String>): Int {
@@ -26,13 +22,10 @@ fun main() {
         val map = first.associateWith { 0 }.toMutableMap()
         second.forEach {
             if (map.containsKey(it)) {
-                val value = map.getValue(it)
-                map[it] = value + 1
+                map[it] = map.getValue(it) + 1
             }
         }
-        return first.fold(0) { acc, item ->
-            acc + item * map.getValue(item)
-        }
+        return first.fold(0) { acc, item -> acc + item * map.getValue(item) }
     }
 
     // Or read a large test input from the `src/Day01_test.txt` file:

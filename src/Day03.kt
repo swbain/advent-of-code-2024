@@ -7,12 +7,10 @@ fun main() {
         return input.size
     }
 
-    // Or read a large test input from the `src/Day02_test.txt` file:
-    val testInput = readInput("Day02_test")
+    val testInput = readInput("Day03_test")
     checkAnswer(2, part1(testInput), 1)
 
-    // Read the input from the `src/Day02.txt` file.
-    val input = readInput("Day02")
+    val input = readInput("Day03")
     "🤠part 1: ${part1(input)} 🤠".println()
     "🤪part 2: ${part2(input)} 🤪".println()
 }

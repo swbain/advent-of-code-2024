@@ -19,3 +19,11 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+fun <T> checkAnswer(expected: T, actual: T, part: Int) {
+    if (expected == actual) {
+        println("✅✨ correct. part$part output = $actual ✨✅")
+    } else {
+        println("🚨🚫 WRONG! part$part output = $actual 🚫🚨")
+    }
+}

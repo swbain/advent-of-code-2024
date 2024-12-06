@@ -9,10 +9,6 @@ fun main() {
         val windows = windowed(2).map { it.first() to it.last() }
         var previousDiff = 0
         for ((a, b) in windows) {
-            // if a == b, unsafe
-            // if previous diff positive and this diff negative (and vice versa), unsafe
-            // if difference > 3, unsafe.
-            // 0 < difference.abs <= 3
             val diff = a - b
             if (diff == 0) return false
             else if (diff.absoluteValue > 3) return false

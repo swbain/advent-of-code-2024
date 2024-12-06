@@ -16,17 +16,27 @@ fun main() {
         return true
     }
 
+    fun List<Int>.isSafe2(): Boolean {
+        if (isSafe()) return true
+
+        for (i in indices) {
+            if (toMutableList().apply { removeAt(i) }.isSafe()) return true
+        }
+        return false
+    }
+
     fun part1(input: List<String>): Int {
         return input(input).count { it.isSafe() }
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return input(input).count { it.isSafe2() }
     }
 
     // Or read a large test input from the `src/Day02_test.txt` file:
     val testInput = readInput("Day02_test")
     checkAnswer(2, part1(testInput), 1)
+    checkAnswer(4, part2(testInput), 2)
 
     // Read the input from the `src/Day02.txt` file.
     val input = readInput("Day02")

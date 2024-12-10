@@ -1,33 +1,33 @@
 fun main() {
-fun String.pair(): Pair<Int, Int> {
-    return removePrefix("mul(")
-        .removeSuffix(")")
-        .split(",")
-        .let { nums -> nums.first().toInt() to nums.last().toInt() }
-}
-
-fun part1(input: String): Int {
-    val regex = Regex("""mul\(\d{1,3},\d{1,3}\)""")
-    return regex.findAll(input).map { it.value.pair() }.toList().sumOf { (a, b) -> a * b }
-}
-
-fun part2(input: String): Int {
-    val regex = Regex("""mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)""")
-    val commands = regex.findAll(input).map { it.value }
-    val pairs = mutableListOf<Pair<Int, Int>>()
-    var shouldAdd = true
-    for (command in commands) {
-        if (command == "don't()") {
-            shouldAdd = false
-        } else if (command == "do()") {
-            shouldAdd = true
-        } else if (shouldAdd) {
-            pairs.add(command.pair())
-        }
+    fun String.pair(): Pair<Int, Int> {
+        return removePrefix("mul(")
+            .removeSuffix(")")
+            .split(",")
+            .let { nums -> nums.first().toInt() to nums.last().toInt() }
     }
 
-    return pairs.sumOf { (a, b) -> a * b }
-}
+    fun part1(input: String): Int {
+        val regex = Regex("""mul\(\d{1,3},\d{1,3}\)""")
+        return regex.findAll(input).map { it.value.pair() }.toList().sumOf { (a, b) -> a * b }
+    }
+
+    fun part2(input: String): Int {
+        val regex = Regex("""mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)""")
+        val commands = regex.findAll(input).map { it.value }
+        val pairs = mutableListOf<Pair<Int, Int>>()
+        var shouldAdd = true
+        for (command in commands) {
+            if (command == "don't()") {
+                shouldAdd = false
+            } else if (command == "do()") {
+                shouldAdd = true
+            } else if (shouldAdd) {
+                pairs.add(command.pair())
+            }
+        }
+
+        return pairs.sumOf { (a, b) -> a * b }
+    }
 
     val testInput = readFullInput("Day03_test")
     checkAnswer(expected = 161, actual = part1(testInput), part = 1)
